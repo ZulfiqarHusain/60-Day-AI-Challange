@@ -1,53 +1,65 @@
+// Classifier Variable
 let classifier;
-let imageModelURL = './'; // Iska matlab isi folder se files uthao
-let video;
-let label = "";
+// Model URL - Isme humne link ki jagah './' rakha hai kyunki files usi folder mein hain
+let imageModelURL = './';
 
+// Video variable
+let video;
+let flippedVideo;
+// To store the classification
+let label = "Model Loading...";
+
+// Load the model first
 function preload() {
-  // Model load ho raha hai
   classifier = ml5.imageClassifier(imageModelURL + 'model.json');
 }
 
 function setup() {
+  // Canvas create karo
   let canvas = createCanvas(640, 480);
   canvas.parent('canvas-container');
   
-  // Webcam chalu karo
+  // Webcam capture start karo
   video = createCapture(VIDEO);
   video.size(640, 480);
   video.hide();
 
-  // Prediction shuru karo
+  flippedVideo = ml5.flipImage(video);
+  // Classification shuru karo
   classifyVideo();
 }
 
 function draw() {
   background(0);
-  // Mirror image dikhane ke liye
-  push();
-  translate(width, 0);
-  scale(-1, 1);
-  image(video, 0, 0, width, height);
-  pop();
+  // Draw the video
+  image(flippedVideo, 0, 0);
 
-  // Label dikhao
-  fill(0, 255, 0);
+  // Drawing the label
+  fill(0, 255, 0); // Green color for label
   textSize(32);
   textAlign(CENTER);
   text(label, width / 2, height - 20);
 }
 
+// Get a prediction for the current video frame
 function classifyVideo() {
-  classifier.classify(video, gotResult);
+  flippedVideo = ml5.flipImage(video);
+  classifier.classify(flippedVideo, gotResult);
 }
 
+// When we get a result
 function gotResult(error, results) {
+  // If there is an error
   if (error) {
     console.error(error);
     return;
   }
-  // Result update karo aur phir se classify karo
+  // The results are in an array ordered by confidence.
   label = results[0].label;
-  document.getElementById('status').innerText = "Model Active: Detecting...";
+  
+  // Status update in HTML
+  document.getElementById('status').innerText = "Model Active: Detecting " + label;
+  
+  // Classifiy again!
   classifyVideo();
 }
