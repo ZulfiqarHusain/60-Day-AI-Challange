@@ -1,52 +1,54 @@
-let classifier;
-let video;
-let label = "Initializing Model...";
-// Path check kar lo, agar folder ka naam yahi hai toh:
-let imageModelURL = 'https://zulfiqarhusain.github.io/60-Day-AI-Challange/Day6-Teachable-Machine/';
+let model, webcam, labelContainer, maxPredictions;
+let label = "Loading...";
 
-function preload() {
-  classifier = ml5.imageClassifier(imageModelURL + 'model.json');
+// Link wahi jo Teachable Machine ne diya tha (Cloud Link)
+// Isse local files ka tension khatam ho jayega
+const URL = "https://teachablemachine.withgoogle.com/models/y0jWHLJV4/";
+
+async function setup() {
+    createCanvas(640, 480).parent('canvas-container');
+    
+    const modelURL = URL + "model.json";
+    const metadataURL = URL + "metadata.json";
+
+    // Model load karo
+    model = await tmImage.load(modelURL, metadataURL);
+    maxPredictions = model.getTotalClasses();
+
+    // Webcam setup
+    const flip = true; 
+    webcam = new tmImage.Webcam(640, 480, flip); 
+    await webcam.setup(); 
+    await webcam.play();
+    window.requestAnimationFrame(loop);
+
+    document.getElementById("status").innerText = "Model Ready! ✅";
 }
 
-function setup() {
-  let canvas = createCanvas(640, 480);
-  canvas.parent('canvas-container');
-  video = createCapture(VIDEO);
-  video.size(640, 480);
-  video.hide();
-  classifyVideo();
+async function loop() {
+    webcam.update(); 
+    await predict();
+    window.requestAnimationFrame(loop);
+}
+
+async function predict() {
+    const prediction = await model.predict(webcam.canvas);
+    // Sabse zyada confidence wala result uthao
+    let highestConf = 0;
+    for (let i = 0; i < maxPredictions; i++) {
+        if (prediction[i].probability > highestConf) {
+            highestConf = prediction[i].probability;
+            label = prediction[i].className;
+        }
+    }
 }
 
 function draw() {
-  background(0);
-  // Mirroring effect
-  push();
-  translate(width, 0);
-  scale(-1, 1);
-  image(video, 0, 0, width, height);
-  pop();
-
-  // Label display logic
-  fill(0, 255, 0);
-  textSize(32);
-  textAlign(CENTER);
-  text(label, width / 2, height - 20);
-}
-
-function classifyVideo() {
-  // Ye function baar baar classification run karega
-  classifier.classify(video, gotResult);
-}
-
-function gotResult(error, results) {
-  if (error) {
-    console.error(error);
-    return;
-  }
-  // Yahan hum label ko results se update kar rahe hain
-  label = results[0].label;
-  document.getElementById('status').innerText = "Detected: " + label;
-  
-  // Agli prediction start karo
-  classifyVideo();
+    if (webcam && webcam.canvas) {
+        image(webcam.canvas, 0, 0);
+        fill(0, 255, 0);
+        textSize(32);
+        textAlign(CENTER);
+        text(label, width / 2, height - 20);
+    }
 }
