@@ -1,35 +1,24 @@
 let classifier;
 let video;
-let label = "Model Initializing...";
+let label = "Model Loading...";
 
 function preload() {
-  // Direct file names use kar rahe hain jo usi folder mein hain
-  classifier = ml5.imageClassifier('./model.json');
+  // Direct filename without any extra slash
+  classifier = ml5.imageClassifier('model.json');
 }
 
 function setup() {
   let canvas = createCanvas(640, 480);
-  canvas.parent('canvas-holder');
-  
-  // Webcam chalu karo
+  canvas.parent('canvas-container');
   video = createCapture(VIDEO);
   video.size(640, 480);
   video.hide();
-
   classifyVideo();
 }
 
 function draw() {
   background(0);
-  
-  // Webcam image display (Mirrored)
-  push();
-  translate(width, 0);
-  scale(-1, 1);
-  image(video, 0, 0, width, height);
-  pop();
-
-  // Label UI
+  image(video, 0, 0);
   fill(0, 255, 0);
   textSize(32);
   textAlign(CENTER);
@@ -46,6 +35,6 @@ function gotResult(error, results) {
     return;
   }
   label = results[0].label;
-  document.getElementById("status").innerText = "AI Status: Online";
+  document.getElementById('status').innerText = "AI Online";
   classifyVideo();
 }
