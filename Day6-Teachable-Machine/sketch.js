@@ -2,7 +2,7 @@ let model, webcam, maxPredictions;
 let label = "Loading AI...";
 
 // Tera Hosted Link (Cloud)
-const URL = "https://teachablemachine.withgoogle.com/models/y0jWHLJV4/";
+const URL = "https://teachablemachine.withgoogle.com/models/yOjWHLJV4/";
 
 async function setup() {
     // Canvas size aur placement
