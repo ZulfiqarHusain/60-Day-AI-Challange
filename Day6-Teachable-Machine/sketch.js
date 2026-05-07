@@ -1,13 +1,11 @@
 let classifier;
-// Is line ko maine fix kiya hai taaki files sahi se mil sakein
-let imageModelURL = './'; 
-
 let video;
-let flippedVideo;
-let label = "Initializing Model...";
+let label = "Waiting...";
+// GitHub Pages ka pura path taaki browser confuse na ho
+let imageModelURL = 'https://zulfiqarhusain.github.io/60-Day-AI-Challange/Day6-Teachable-Machine/';
 
 function preload() {
-  // Model loading with explicit file name
+  // Model load ho raha hai
   classifier = ml5.imageClassifier(imageModelURL + 'model.json');
 }
 
@@ -15,7 +13,7 @@ function setup() {
   let canvas = createCanvas(640, 480);
   canvas.parent('canvas-container');
   
-  // Webcam setup
+  // Webcam start
   video = createCapture(VIDEO);
   video.size(640, 480);
   video.hide();
@@ -25,16 +23,15 @@ function setup() {
 
 function draw() {
   background(0);
-  // Mirror output
-  push();
+  // Mirroring the video for natural feel
   translate(width, 0);
   scale(-1, 1);
-  if (video) {
-    image(video, 0, 0, width, height);
-  }
-  pop();
-
-  // Label UI
+  image(video, 0, 0, width, height);
+  
+  // Back to normal for text
+  scale(-1, 1);
+  translate(-width, 0);
+  
   fill(0, 255, 0);
   textSize(32);
   textAlign(CENTER);
@@ -51,6 +48,6 @@ function gotResult(error, results) {
     return;
   }
   label = results[0].label;
-  document.getElementById('status').innerText = "Model Active: Detecting Object";
+  document.getElementById('status').innerText = "Object Detected: " + label;
   classifyVideo();
 }
