@@ -4,7 +4,7 @@
 Built a real-time Image Classifier using Google's Teachable Machine to distinguish between a **Mobile** and a **Laptop**. This task helped in understanding how data variance and quality impact model accuracy.
 
 ## Submission Links
-- **Live Model (Teachable Machine):** [https://teachablemachine.withgoogle.com/models/y0jWHLJV4/](https://teachablemachine.withgoogle.com/models/y0jWHLJV4/)
+- **Live Model (Teachable Machine):** [https://teachablemachine.withgoogle.com/models/y0jWHLJV4/](https://teachablemachine.withgoogle.com/models/yOjWHLJV4/)
 - **Project Files:** [View Files Here](./Day6-Teachable-Machine/)
 
 ## 3 Key Observations
