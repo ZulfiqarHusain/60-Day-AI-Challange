@@ -28,5 +28,7 @@ Implemented a multi-stage cleaning function using NLTK and Regex:
 
 ## Tech Stack: 
 
-###Language: Python
-###Libraries: NLTK, Scikit-learn, Pandas, Re (Regex)
+### Language: 
+Python
+### Libraries: 
+NLTK, Scikit-learn, Pandas, Re (Regex)
