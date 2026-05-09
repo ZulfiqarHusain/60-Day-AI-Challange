@@ -11,13 +11,15 @@ Implemented a multi-stage cleaning function using NLTK and Regex:
 2. Noise Removal: Used Regular Expressions to strip out special characters, numbers, and punctuation.
 3. Stop-words Removal: Filtered out common words (is, the, and) that don't contribute to sentiment.
 4. Stemming: Used PorterStemmer to chop words down to their root form (e.g., loving -> love).
-# Comparative Results (Manual Testing):
 
-Original Text,Processed (Cleaned) Text,Predicted Sentiment
-"""I am loving this so much!""","""love much""",Positive
-"""It was not a good movie.""","""good movi"" (Note: 'not' was kept/removed based on list)",Negative
-"""Absolutely waste of money.""","""absolut wast money""",Negative
-"""The plot was incredibly amazing""","""plot incred amaz""",Positive
+### 📊 Comparative Results (Manual Testing)
+
+| Original Text | Processed (Cleaned) Text | Predicted Sentiment |
+| :--- | :--- | :--- |
+| "I am loving this so much!" | "love much" | **Positive** |
+| "It was not a good movie." | "good movi" *(Note: 'not' handling)* | **Negative** |
+| "Absolutely waste of money." | "absolut wast money" | **Negative** |
+| "The plot was incredibly amazing" | "plot incred amaz" | **Positive** |
 
 # Key Observations:
 1. Vocabulary Compression: Stemming significantly reduced the number of unique words, making the model faster and more memory-efficient.
