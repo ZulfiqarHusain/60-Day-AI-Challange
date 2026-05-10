@@ -32,3 +32,23 @@ Implemented a multi-stage cleaning function using NLTK and Regex:
 Python
 ### Libraries: 
 NLTK, Scikit-learn, Pandas, Re (Regex)
+
+
+# Day 9: Semantic Similarity with Embeddings 🧬
+
+## Overview
+Moving beyond Day 7 & 8, where we used Bag-of-Words and Preprocessing, Day 9 focuses on **Vector Embeddings**. Instead of counting words, we are now measuring the "meaning" of sentences.
+
+## Key Implementation
+- **Model:** `all-MiniLM-L6-v2` (Sentence-Transformers)
+- **Concept:** Cosine Similarity
+
+## Test Results
+- **Pair 1:** "The cat sits outside" vs "The feline is resting outdoors"
+  - **Similarity Score:** 0.6241 (High Semantic Link)
+- **Pair 2:** "A man is playing guitar" vs "He is strumming a musical instrument"
+  - **Similarity Score:** 0.5893 (High Contextual Link)
+
+## Learnings
+1. **Word Overlap != Meaning:** Sentences can be similar without sharing common words.
+2. **Embeddings:** Learned how to map text into a 384-dimensional vector space.
