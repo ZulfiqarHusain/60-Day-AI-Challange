@@ -63,7 +63,7 @@ Instead of running manual steps, I used the Pipeline() class to bundle:
 2. Multinomial Naive Bayes: A robust probabilistic classifier for text data.
 3. Automated Inference: One-click prediction that handles raw text as input and gives the category as output.
 
-##The "Aha!" Moment: Debugging & Data Centricity
+## The "Aha!" Moment: Debugging & Data Centricity
 During initial testing, the model predicted "This is the best thing I have ever bought" as Negative.
 
 ### The Problem:
