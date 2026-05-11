@@ -53,4 +53,39 @@ Moving beyond Day 7 & 8, where we used Bag-of-Words and Preprocessing, Day 9 foc
 1. **Word Overlap != Meaning:** Sentences can be similar without sharing common words.
 2. **Embeddings:** Learned how to map text into a 384-dimensional vector space.
 
-Day 10: Building & Debugging an End-to-End NLP Pipeline 🏗️Project OverviewOn Day 10, I reached a major milestone by integrating multiple NLP concepts—Cleaning, Feature Extraction, and Classification—into a single, automated Scikit-learn Pipeline. This project demonstrates the transition from individual scripts to a professional, integrated Machine Learning system.The Technical WorkflowInstead of running manual steps, I used the Pipeline() class to bundle:TF-IDF Vectorizer: To convert text into numerical weights based on term importance (moving beyond simple word counts).Multinomial Naive Bayes: A robust probabilistic classifier for text data.Automated Inference: One-click prediction that handles raw text as input and gives the category as output.The "Aha!" Moment: Debugging & Data CentricityDuring initial testing, the model predicted "This is the best thing I have ever bought" as Negative.The Problem:The training dataset was too small and didn't contain the word "best." The model had never "seen" this word as a positive feature, so it made a biased prediction.The Fix:I expanded the training dataset with more diverse labels (adding more 'positive' and 'negative' examples). By providing a Balanced Dataset, I taught the model to recognize "best" and other top-tier descriptive words as positive indicators.Final Test ResultsInput CommentPredicted Sentiment"This is the best thing I have ever bought"Positive ✅"I really hate how slow the service is"Negative ✅3 Key LearningsPipeline Automation: Bundling steps reduces the risk of "Data Leakage" and makes the code clean and production-ready.The Power of Labels: Learned that labels act as the "Teacher" for the model. The more high-quality labeled data we provide, the smarter the AI becomes.Data Over Code: In modern AI, often the best way to fix a model isn't by changing the algorithm, but by improving the quality and quantity of the training data.Tech StackPythonScikit-learn (Pipeline, TF-IDF, Naive Bayes)Pandas
+# Day 10: Building & Debugging an End-to-End NLP Pipeline 🏗️
+## Project Overview:-
+I reached a major milestone by integrating multiple NLP concepts—Cleaning, Feature Extraction, and Classification—into a single, automated Scikit-learn Pipeline. This project demonstrates the transition from individual scripts to a professional, integrated Machine Learning system.
+
+## The Technical Workflow:- 
+Instead of running manual steps, I used the Pipeline() class to bundle:
+1. TF-IDF Vectorizer: To convert text into numerical weights based on term importance (moving beyond simple word counts).
+2. Multinomial Naive Bayes: A robust probabilistic classifier for text data.
+3. Automated Inference: One-click prediction that handles raw text as input and gives the category as output.
+
+##The "Aha!" Moment: Debugging & Data Centricity
+During initial testing, the model predicted "This is the best thing I have ever bought" as Negative.
+
+### The Problem:
+The training dataset was too small and didn't contain the word "best." The model had never "seen" this word as a positive feature, so it made a biased prediction.
+### The Fix:
+I expanded the training dataset with more diverse labels (adding more 'positive' and 'negative' examples). By providing a Balanced Dataset, I taught the model to recognize "best" and other top-tier descriptive words as positive indicators.
+
+### 🎯 Final Model Inference Results
+
+| Input Comment | Preprocessed Text | Predicted Sentiment | Status |
+| :--- | :--- | :--- | :--- |
+| "This is the best thing I have ever bought" | `best thing bought` | **Positive** | ✅ Fixed |
+| "I really hate how slow the service is" | `hate slow servic` | **Negative** | ✅ Accurate |
+| "Excellent work, highly recommend" | `excel work high recommend` | **Positive** | ✅ Accurate |
+| "The quality is very poor" | `qualiti poor` | **Negative** | ✅ Accurate |
+## Key Learnings 
+1. Pipeline Automation: Bundling steps reduces the risk of "Data Leakage" and makes the code clean and production-ready.
+2. The Power of Labels: Learned that labels act as the "Teacher" for the model. The more high-quality labeled data we provide, the smarter the AI becomes.
+3. Data Over Code: In modern AI, often the best way to fix a model isn't by changing the algorithm, but by improving the quality and quantity of the training data.
+## 🛠️Tech Stack
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
+![Scikit-Learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![Jupyter Notebook](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white)
+
