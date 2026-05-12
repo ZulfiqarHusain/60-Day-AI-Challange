@@ -100,21 +100,6 @@ The system works on the principle of Vector Space Modeling:
 2. Query Transformation: When a user enters a query, it is transformed into the same vector space.
 3. Cosine Similarity: Mathematically calculated the 'distance' or angle between the query vector and all document vectors. The document with the smallest distance (highest similarity) is retrieved as the top result.
 
-Bhai, Day 11 ka README ekdum professional hona chahiye kyunki Retrieval systems hi modern AI (jaise Search Engines aur RAG) ki base hain. Ise copy-paste kar lo:
-
-Day 11: Building an Intelligent Retrieval System 🔍
-Overview
-On Day 11, I explored how AI systems find and rank information from a large database. Instead of a simple "Ctrl+F" keyword match, I built a Vector-based Retrieval System that measures the mathematical similarity between a user's query and a set of documents.
-
-The Technical Logic
-The system works on the principle of Vector Space Modeling:
-
-TF-IDF Vectorization: Converted raw text documents into numerical vectors. This helps the system understand which words are unique and important in a document.
-
-Query Transformation: When a user enters a query, it is transformed into the same vector space.
-
-Cosine Similarity: Mathematically calculated the 'distance' or angle between the query vector and all document vectors. The document with the smallest distance (highest similarity) is retrieved as the top result.
-
 ## Core Functionality
 The system can take a natural language query and find the most relevant piece of information from a "Knowledge Base."
 
