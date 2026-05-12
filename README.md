@@ -91,7 +91,7 @@ I expanded the training dataset with more diverse labels (adding more 'positive'
 
 # Day 11: Building an Intelligent Retrieval System 🔍
 ## Overview
-On Day 11, I explored how AI systems find and rank information from a large database. Instead of a simple "Ctrl+F" keyword match, I built a Vector-based Retrieval System that measures the mathematical similarity between a user's query and a set of documents.
+I explored how AI systems find and rank information from a large database. Instead of a simple "Ctrl+F" keyword match, I built a Vector-based Retrieval System that measures the mathematical similarity between a user's query and a set of documents.
 
 ## The Technical Logic
 The system works on the principle of Vector Space Modeling:
