@@ -89,3 +89,54 @@ I expanded the training dataset with more diverse labels (adding more 'positive'
 ![Scikit-Learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
 ![Jupyter Notebook](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white)
 
+# Day 11: Building an Intelligent Retrieval System 🔍
+## Overview
+On Day 11, I explored how AI systems find and rank information from a large database. Instead of a simple "Ctrl+F" keyword match, I built a Vector-based Retrieval System that measures the mathematical similarity between a user's query and a set of documents.
+
+## The Technical Logic
+The system works on the principle of Vector Space Modeling:
+
+1. TF-IDF Vectorization: Converted raw text documents into numerical vectors. This helps the system understand which words are unique and important in a document.
+2. Query Transformation: When a user enters a query, it is transformed into the same vector space.
+3. Cosine Similarity: Mathematically calculated the 'distance' or angle between the query vector and all document vectors. The document with the smallest distance (highest similarity) is retrieved as the top result.
+
+Bhai, Day 11 ka README ekdum professional hona chahiye kyunki Retrieval systems hi modern AI (jaise Search Engines aur RAG) ki base hain. Ise copy-paste kar lo:
+
+Day 11: Building an Intelligent Retrieval System 🔍
+Overview
+On Day 11, I explored how AI systems find and rank information from a large database. Instead of a simple "Ctrl+F" keyword match, I built a Vector-based Retrieval System that measures the mathematical similarity between a user's query and a set of documents.
+
+The Technical Logic
+The system works on the principle of Vector Space Modeling:
+
+TF-IDF Vectorization: Converted raw text documents into numerical vectors. This helps the system understand which words are unique and important in a document.
+
+Query Transformation: When a user enters a query, it is transformed into the same vector space.
+
+Cosine Similarity: Mathematically calculated the 'distance' or angle between the query vector and all document vectors. The document with the smallest distance (highest similarity) is retrieved as the top result.
+
+## Core Functionality
+The system can take a natural language query and find the most relevant piece of information from a "Knowledge Base."
+
+### Test Case:
+* **Knowledge Base:** 5 diverse sentences about AI, Python, and NLP.
+* **User Query:** *"Tell me about NLP and text"*
+* **Retrieved Result:** *"Natural Language Processing helps machines understand text."*
+* **Confidence Score:** `0.5298`
+
+## Key Learnings
+1. Ranking vs. Filtering: Retrieval is about ranking results by relevance, not just filtering "yes" or "no."
+2. Contextual Matching: Even if some words are different, the system can find relevant documents if the core keywords (like NLP and Text) carry high TF-IDF weights.
+3. Foundation for RAG: This project is the first step toward building Retrieval-Augmented Generation (RAG) systems, which allow LLMs to access external data.
+
+### 🛠️ Tech Stack
+
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Scikit-Learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
+
+| **Component** | **Usage** |
+| :--- | :--- |
+| **Python** | Core language for implementing the logic. |
+| **Scikit-learn** | Used `TfidfVectorizer` for text-to-vector conversion and `Cosine Similarity` for ranking. |
+| **Pandas** | Used for structured data handling and knowledge base management. |
