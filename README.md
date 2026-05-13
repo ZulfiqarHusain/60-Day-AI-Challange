@@ -119,9 +119,52 @@ The system can take a natural language query and find the most relevant piece of
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![Scikit-Learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
 ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
-
 | **Component** | **Usage** |
 | :--- | :--- |
 | **Python** | Core language for implementing the logic. |
 | **Scikit-learn** | Used `TfidfVectorizer` for text-to-vector conversion and `Cosine Similarity` for ranking. |
 | **Pandas** | Used for structured data handling and knowledge base management. |
+
+
+# Day 12: Mastering Text Chunking for GenAI ✂️📖
+## Overview
+On Day 12, I explored Text Chunking—a fundamental step in building Retrieval-Augmented Generation (RAG) systems. Large language models have "context windows," and they can't digest massive documents all at once. I implemented strategies to break down long text into manageable, context-rich "chunks."
+
+## Why Chunking Matters?
+If we cut text randomly, we might lose the meaning (e.g., cutting a sentence in half). Effective chunking ensures that each piece of data passed to an AI model is self-contained and semantically meaningful.
+
+## Implementation: Recursive Character Splitting
+Instead of simple character counting, I used the Recursive Character Text Splitter from LangChain.
+
+### Key Parameters Used:
+* **Chunk Size (100): Defines the maximum length of each chunk.
+* **Chunk Overlap (20): This is the secret sauce! It keeps a small portion of the previous chunk in the next one to preserve context across boundaries.
+### 📊 Chunking Strategies Overview
+
+| Strategy | Benefit | Use Case |
+| :--- | :--- | :--- |
+| **Fixed Size** | Predictable | Simple storage & basic indexing |
+| **Recursive** | Smart boundaries (Paragraphs/Sentences) | High-quality RAG pipelines |
+| **Overlap** | Context Preservation | Long document analysis & deep retrieval |
+
+### Output Example:
+In my test, a paragraph about my AI journey was split into multiple overlapping chunks.
+* ** Chunk 1: "...documenting his 60-Day AI Challenge."
+* **Chunk 2: "AI Challenge. Day 11 was about..."
+(Note how "AI Challenge" overlaps to maintain flow!)
+## Engineering Insights:
+1. Semantic Integrity: Recursive splitting is superior because it respects the structure of human language (newlines > spaces > characters).
+2. Vector DB Optimization: Small, meaningful chunks lead to better search results in Vector Databases like Pinecone or ChromaDB.
+3. The Overlap Trade-off: More overlap means better context but higher storage costs and redundant tokens.
+
+### 🛠️ Tech Stack
+| Technology | Purpose |
+| :--- | :--- |
+| **Python** | Primary programming language |
+| **LangChain** | Specifically using `RecursiveCharacterTextSplitter` for intelligent chunking |
+| **Jupyter/Colab** | Environment for experimentation and visualization |
+#### 🚀 Powered By:
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white)
+![Jupyter](https://img.shields.io/badge/Jupyter-F37626.svg?style=for-the-badge&logo=Jupyter&logoColor=white)
+
