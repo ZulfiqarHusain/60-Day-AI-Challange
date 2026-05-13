@@ -137,8 +137,8 @@ If we cut text randomly, we might lose the meaning (e.g., cutting a sentence in 
 Instead of simple character counting, I used the Recursive Character Text Splitter from LangChain.
 
 ### Key Parameters Used:
-* **Chunk Size (100): Defines the maximum length of each chunk.
-* **Chunk Overlap (20): This is the secret sauce! It keeps a small portion of the previous chunk in the next one to preserve context across boundaries.
+* Chunk Size (100): Defines the maximum length of each chunk.
+* Chunk Overlap (20): This is the secret sauce! It keeps a small portion of the previous chunk in the next one to preserve context across boundaries.
 ### 📊 Chunking Strategies Overview
 
 | Strategy | Benefit | Use Case |
@@ -149,8 +149,8 @@ Instead of simple character counting, I used the Recursive Character Text Splitt
 
 ### Output Example:
 In my test, a paragraph about my AI journey was split into multiple overlapping chunks.
-* ** Chunk 1: "...documenting his 60-Day AI Challenge."
-* **Chunk 2: "AI Challenge. Day 11 was about..."
+* Chunk 1: "...documenting his 60-Day AI Challenge."
+* Chunk 2: "AI Challenge. Day 11 was about..."
 (Note how "AI Challenge" overlaps to maintain flow!)
 ## Engineering Insights:
 1. Semantic Integrity: Recursive splitting is superior because it respects the structure of human language (newlines > spaces > characters).
