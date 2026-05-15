@@ -168,3 +168,30 @@ In my test, a paragraph about my AI journey was split into multiple overlapping 
 ![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white)
 ![Jupyter](https://img.shields.io/badge/Jupyter-F37626.svg?style=for-the-badge&logo=Jupyter&logoColor=white)
 
+
+# Day 14: Building a Semantic Search Engine 🔍🧠
+
+## Overview
+Today, I upgraded my information retrieval skills by building a **Semantic Search Engine**. Unlike traditional search that relies on exact keyword matches, this engine uses **Sentence Embeddings** to understand the underlying meaning and intent of a query.
+
+## How it Works
+1. **Embedding Generation:** Every document in the corpus is converted into a high-dimensional vector using the `all-MiniLM-L6-v2` transformer model.
+2. **Contextual Mapping:** The user query is also embedded into the same vector space.
+3. **Similarity Calculation:** Using **Cosine Similarity**, the engine calculates which documents are mathematically closest to the query's meaning.
+
+
+## Results & Observations
+| Query | Top Match | Score | Observation |
+| :--- | :--- | :--- | :--- |
+| "A man is eating something" | "A man is eating food" | **0.9010** | Perfect semantic match! |
+| "Animal is running fast" | "A cheetah is running behind its prey" | **0.5280** | Model linked 'Cheetah' to 'Animal' contextually. |
+
+## Key Learnings
+- **Intent over Keywords:** The system can find relevant information even if the specific words in the query don't exist in the database.
+- **Score Thresholds:** Learned that a score above 0.5 generally indicates a strong contextual link in this model.
+- **Scalability:** This logic is the backbone of modern recommendation systems and advanced AI search tools.
+
+## Tech Stack
+- **Python**
+- **Sentence-Transformers** (Hugging Face)
+- **PyTorch** (for tensor operations)
