@@ -1,0 +1,131 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOZIGLw9RhzaCQ/RO/4IkcP",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/ZulfiqarHusain/60-Day-AI-Challange/blob/main/Day%2015-RAG%20Pipelineipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!pip install langchain langchain-community langchain-openai sentence-transformers faiss-cpu"
+      ],
+      "metadata": {
+        "id": "DBnyADJSukB0"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import os\n",
+        "from langchain_community.vectorstores import FAISS\n",
+        "from langchain_community.embeddings import HuggingFaceEmbeddings\n",
+        "from langchain_openai import ChatOpenAI\n",
+        "from langchain_core.prompts import PromptTemplate\n",
+        "\n",
+        "# 1. Apni OpenAI API Key yahan set karo\n",
+        "os.environ[\"OPENAI_API_KEY\"] = \"your-openai-api-key-here\"\n",
+        "\n",
+        "# 2. Custom Knowledge Base\n",
+        "knowledge_base = [\n",
+        "    \"UrbanEye is an AI project developed by Zulfiqar Husain using object detection models to identify potholes.\",\n",
+        "    \"Zulfiqar Husain is a final-year B.Tech student specializing in AI and Data Science at SIRT-E in Bhopal.\",\n",
+        "    \"Zulfiqar successfully organized a landmark Campus Workshop on Prompt Engineering with Gemini in October 2025.\",\n",
+        "    \"The NBA aligned exam paper formatter is an educational tool developed to automate paper formatting dynamically.\"\n",
+        "]\n",
+        "\n",
+        "# 3. Embedding and Index Setup\n",
+        "embeddings = HuggingFaceEmbeddings(model_name=\"all-MiniLM-L6-v2\")\n",
+        "vector_store = FAISS.from_texts(knowledge_base, embeddings)\n",
+        "\n",
+        "# 4. LLM Initialization\n",
+        "llm = ChatOpenAI(model=\"gpt-3.5-turbo\", temperature=0)\n",
+        "\n",
+        "# =====================================================================\n",
+        "# FUNCTION 1: STRUCTURED RAG GENERATION\n",
+        "# =====================================================================\n",
+        "def generate_with_rag(query):\n",
+        "    retriever = vector_store.as_retriever(search_kwargs={\"k\": 3})\n",
+        "    docs = retriever.get_relevant_documents(query)\n",
+        "    context = \"\\n\".join([doc.page_content for doc in docs])\n",
+        "\n",
+        "    template = \"\"\"\n",
+        "    You are a precise AI assistant. Answer the user's question accurately using ONLY the provided context below.\n",
+        "    If the answer cannot be found in the context, say \"I don't know based on the provided data.\" Do not hallucinate.\n",
+        "\n",
+        "    Context:\n",
+        "    {context}\n",
+        "\n",
+        "    Question: {question}\n",
+        "    Answer:\"\"\"\n",
+        "\n",
+        "    prompt = PromptTemplate(template=template, input_variables=[\"context\", \"question\"])\n",
+        "    final_prompt = prompt.format(context=context, question=query)\n",
+        "\n",
+        "    response = llm.invoke(final_prompt)\n",
+        "    return response, context\n",
+        "\n",
+        "# =====================================================================\n",
+        "# FUNCTION 2: DIRECT LLM GENERATION (Isse NameError fix hoga)\n",
+        "# =====================================================================\n",
+        "def generate_without_rag(query):\n",
+        "    response = llm.invoke(query)\n",
+        "    return response"
+      ],
+      "metadata": {
+        "id": "DucsnRLDuooD"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 5 Test Queries based on custom data\n",
+        "test_queries = [\n",
+        "    \"Who developed the UrbanEye project and what does it do?\",\n",
+        "    \"When did Zulfiqar organize the prompt engineering workshop?\",\n",
+        "    \"What is the NBA aligned exam paper formatter used for?\",\n",
+        "    \"Where is Zulfiqar Husain pursuing his B.Tech specialization?\",\n",
+        "    \"What is the exact salary package of a Relationship Manager at IDFC FIRST Bharat?\"\n",
+        "]\n",
+        "\n",
+        "print(f\"{'Query':<55} | {'Without RAG (Direct LLM)':<35} | {'With RAG (Grounded)'}\")\n",
+        "print(\"=\"*140)\n",
+        "\n",
+        "for q in test_queries:\n",
+        "    ans_without = generate_without_rag(q)\n",
+        "    ans_with, _ = generate_with_rag(q)\n",
+        "    print(f\"{q[:53]:<55} | {ans_without[:33]:<35} | {ans_with}\")"
+      ],
+      "metadata": {
+        "id": "WSvYz50AuzXr"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
