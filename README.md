@@ -224,6 +224,36 @@ Today, I upgraded my information retrieval skills by building a **Semantic Searc
 - **Sentence-Transformers** (Hugging Face)
 - **PyTorch** (for tensor operations)
 
+# Day 15: Building an End-to-End RAG Pipeline 🤖🔍
+
+## Overview
+On Day 15, I reached a massive milestone in the challenge by assembling a complete **Retrieval-Augmented Generation (RAG)** pipeline. This project connects text chunking, dense embeddings mapping, and dynamic vector lookups with a large language model (LLM) to mitigate hallucination and ground responses using a custom local knowledge base.
+
+## RAG Architecture Workflow
+1. **Knowledge Base Ingestion:** Populated a custom, domain-specific text dataset.
+2. **Vectorization:** Generated mathematical coordinates via `all-MiniLM-L6-v2` transformers.
+3. **Index Storage:** Managed structural lookup optimization using a localized `FAISS` Vector DB index.
+4. **Context Injection:** Formatted a tight semantic search retrieval prompt template passing dynamic contexts into an OpenAI chat completion engine.
+
+
+## Grounding Comparison Results
+
+| Test Query | Output Without RAG (Direct LLM) | Output With RAG (Grounded Engine) | Evaluation |
+| :--- | :--- | :--- | :--- |
+| "Who developed UrbanEye...?" | Hallucinates or states lack of data. | "UrbanEye is an AI project developed by Zulfiqar Husain..." | ✅ Correctly Grounded |
+| "When was the workshop...?" | Cannot identify the custom date. | "...organized a workshop in October 2025." | ✅ Contextually Verified |
+| "What is NBA aligned formatter?" | Guesses arbitrary sports metrics. | "An educational tool developed to automate paper formatting." | ✅ High Domain Accuracy |
+
+## Engineering Failure Analysis
+Even with an operational RAG layout, pipelines can fail under two main engineering constraints:
+- **Retrieval Missing (Top-K Failure):** If the vector search similarity threshold drops or fails to match relevant nodes, the true source string never hits the LLM context envelope.
+- **Generation Drift:** If model hyper-parameters (like `temperature`) are high, or the instructions constraints are soft, the generative language model may prioritize internal pre-trained memory paths over localized grounding context.
+
+## 🛠️ Tech Stack
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![LangChain](https://img.shields.io/badge/LangChain-F7DF1E?style=for-the-badge&logo=langchain&logoColor=black)
+![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)
+
 # Day 16: Diagnosing RAG Failure Modes 🔍🩺
 
 ## Overview
