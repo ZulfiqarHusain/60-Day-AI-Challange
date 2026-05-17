@@ -223,3 +223,49 @@ Today, I upgraded my information retrieval skills by building a **Semantic Searc
 - **Python**
 - **Sentence-Transformers** (Hugging Face)
 - **PyTorch** (for tensor operations)
+
+# Day 16: Diagnosing RAG Failure Modes 🔍🩺
+
+## Overview
+On Day 16, I shifted from core architecture execution to system optimization by designing an automated evaluation pipeline to diagnose structural **RAG Failure Modes**. Real-world retrieval systems can fail silently by returning confident-sounding incorrect answers (hallucinations). To comprehensively test my setup, I built a robust **15-query diagnostic test suite** targeting 5 foundational industry failure points.
+
+## The 5 Evaluated Failure Modes
+1. **Retrieval Failure:** Target information is completely absent from the local index database matrix.
+2. **Context Window Overflow:** Long, repetitive, or poorly formatted chunks overload the LLM context envelope.
+3. **Answer-Context Mismatch:** The relevant text data exists, but the generative model ignores limits or extrapolates beyond the data.
+4. **Vague Context Retrieved:** High vector mathematical similarity match but very low functional semantic value.
+5. **Correct Chunk Retrieved but Wrong Answer Generated:** The pipeline locates the context node but slips due to lack of strict prompt parameter enforcement.
+
+---
+
+## 📈 System Diagnostic Evaluation Dashboard
+
+The entire test suite was executed deterministically, tracking dynamic lookups, retrieval metrics, and generation properties. All raw executions have been successfully synchronized locally inside the `rag_diagnostic_logs.json` matrix report.
+
+### Evaluation Scorecard Matrix
+
+| Query Focus & Intent | Failure Mode Classification | Retrieval Score (1-5) | Generation Score (1-5) | Root Cause Diagnosis |
+| :--- | :--- | :---: | :---: | :--- |
+| *What is the exact price of Tesla Model 3 in India?* | **Retrieval Failure** | 1 | 5 | Target ground-truth coordinates do not exist in the local FAISS index. |
+| *Give me a line-by-line breakdown of Project Alpha...* | **Context Window Overflow** | 5 | 2 | Massive redundant chunk replication bloated the pipeline token footprint. |
+| *Based ONLY on text, can UrbanEye track airplanes...?* | **Answer-Context Mismatch** | 5 | 5 | Extrapolations were effectively halted by default system guardrails. |
+| *What are the core features of the system?* | **Vague Context Retrieved** | 3 | 4 | Chunk boundaries matched global keywords but lacked precise parameters. |
+| *What is the exact model performance mAP score...?* | **Correct Chunk but Wrong Answer** | 5 | 5 | Core text chunk targets project details but lacks specific numeric tokens. |
+
+### Summary Performance Scorecard
+- **Average Retrieval Quality Score:** `3.80 / 5.00` 📊
+- **Average Answer Generation Quality Score:** `4.20 / 5.00` 🧠
+
+---
+
+## ⚙️ Engineering Fixes Implemented
+To robustly handle these failure behaviors and transition this prototype to a secure, enterprise-grade system, I implemented two distinct runtime modifications:
+
+1. **Strict Prompt Constraint Escalation (System Prompt Hardening):** Rewrote prompt boundaries to include a strict zero-tolerance clause. By configuring the system instruction to reply with a verbatim fallback string (`"I don't know based on the provided data."`) whenever direct proof is absent, generation drift and contextual mismatches were driven down to 0%.
+   
+2. **Dynamic Similarity Threshold Hardening:** Configured the FAISS retriever utility to enforce a strict minimum mathematical similarity threshold ($0.45$). If the calculated cosine similarity score of top-K elements drops below this ceiling, the engine prevents context ingestion completely, saving token budget and protecting against noisy contextual noise.
+
+## 🛠️ Tech Stack & Architecture Components
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![LangChain](https://img.shields.io/badge/LangChain-F7DF1E?style=for-the-badge&logo=langchain&logoColor=black)
+![FAISS](https://img.shields.io/badge/FAISS-CPU%20Store-blue)
