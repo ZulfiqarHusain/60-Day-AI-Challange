@@ -299,3 +299,39 @@ To robustly handle these failure behaviors and transition this prototype to a se
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![LangChain](https://img.shields.io/badge/LangChain-F7DF1E?style=for-the-badge&logo=langchain&logoColor=black)
 ![FAISS](https://img.shields.io/badge/FAISS-CPU%20Store-blue)
+
+
+# Day 17: Improving RAG Precision with Metadata Filtering 🧬🏷️
+
+## Overview
+On Day 17, I advanced my RAG system architecture by solving the challenge of **Context Blindness**. Standard semantic search evaluates similarity based purely on text embeddings, which means it cannot natively separate historical archives from live production data. I restructured my dataset to integrate structured metadata matrices alongside deep vector models.
+
+## Document Structural Scheme
+Every ingested chunk was paired with an explicit key-value metadata envelope holding four tracking constraints:
+- `source`: The dynamic origin team or platform tracking data.
+- `category`: Functional logical scopes (`technical`, `overview`, `historical`, `academic`).
+- `date`: Timestamp strings to facilitate temporal data exclusions.
+- `document_type`: The structural architecture of the file (`report`, `archive`, `brief`).
+
+---
+
+## 📈 Search Precision Evaluation Dashboard
+
+By running targeted search queries side-by-side (with static filtering vs baseline blind lookups), I analyzed how metadata boundaries protect the context footprint:
+
+### Retrieval Optimization Metrics
+
+| Query & Target Intent | Metadata Filter Attached | Retrieved Content Block Overview | Impact Analysis |
+| :--- | :--- | :--- | :--- |
+| *UrbanEye pothole system* | `{"category": "technical"}` | "UrbanEye production system logs track extreme pothole..." | ✅ Safely isolated raw operational specs over marketing summaries. |
+| *Road data survey* | `{"category": "historical"}` | "Archived structural road documentation from historical 2020..." | ✅ Successfully filtered or targeted specific timeline coordinates. |
+| *UrbanEye layout parameters*| `None` (Baseline Search) | Matches conceptually adjacent vector strings unfiltered. | ⚠️ Susceptible to temporal drift or domain-shifting mismatch errors. |
+
+## Key Learnings
+- **Metadata Grounding:** Hard filtering cuts computation overhead and ensures that language models never access stale information or out-of-bounds resources.
+- **Hybrid Search Mechanics:** Combining non-relational key-value filters with high-dimensional embedding indexes is critical for moving a localized RAG prototype into business production environments.
+
+## 🛠️ Tech Stack
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![LangChain](https://img.shields.io/badge/LangChain-F7DF1E?style=for-the-badge&logo=langchain&logoColor=black)
+![FAISS](https://img.shields.io/badge/FAISS-Metadata%20Store-blue)
