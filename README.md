@@ -335,3 +335,40 @@ By running targeted search queries side-by-side (with static filtering vs baseli
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![LangChain](https://img.shields.io/badge/LangChain-F7DF1E?style=for-the-badge&logo=langchain&logoColor=black)
 ![FAISS](https://img.shields.io/badge/FAISS-Metadata%20Store-blue)
+
+
+# Day 18: Measuring and Detecting LLM Hallucinations 🧠🩺
+
+## Overview
+On Day 18, I developed an automated evaluation suite to solve the most critical problem in production generative workflows: **Hallucination Metrics**. Instead of treating hallucinations as unpredictable anomalies, this framework benchmarks language model behavior across 20 distinct factual questions in 3 knowledge domains, comparing a blind completion model against a grounded RAG configuration.
+
+## ⚙️ The Multi-Signal Detector Architecture
+The evaluation framework executes four automated rule-based and programmatic guards to score confidence profiles dynamically:
+1. **Unsupported Claim Detection:** Flags assertions containing entities, metrics, or dates completely missing from the vector segment.
+2. **Token-Level Jaccard Overlap:** Calculates word token set intersection over union metrics. If the overlap score scales **below 0.15**, the response is tagged as hallucinated.
+3. **Contradiction Detection Chain:** Uses targeted keyword cross-matching vectors to catch cases where the model actively negates local truth constraints.
+4. **Citation Absence Verification:** Scans string structural arrays to verify that statements explicitly map back to context lookup addresses.
+
+---
+
+## 📊 Evaluation & Metrics Dashboard
+
+### Hallucination Rate Comparison Analysis
+- **Hallucination Rate WITHOUT Context (Direct Completion):** `15.0%` ⚠️
+- **Hallucination Rate WITH Structured RAG Pipeline:** `0.0%` ✅
+
+### 📋 Categorized Failure Mapping (No-Context Benchmarks)
+
+| Question Focus Category | Sample Target Query | Error Classification | Root Cause Resolution Strategy |
+| :--- | :--- | :--- | :--- |
+| **Enterprise Compensation** | *What is the exact salary package...* | **Fabricated Specific Fact** | Enforced strict prompt boundaries to trigger standard refusal chains. |
+| **Academic Operations** | *Is Zulfiqar studying Civil Eng...?* | **Confident Wrong Answer**| Integrated precise context injections to rewrite generalized vector space clusters. |
+| **Project Engineering** | *What baseline framework tracks...?* | **Plausible Unverifiable Claim** | Used FAISS semantic lookups to bind target model numbers securely. |
+
+## Key Learnings
+- **The Deterministic Fallacy:** LLMs predict the next most probable text token sequence rather than referencing absolute values. Without explicit boundaries, they naturally extrapolate.
+- **Automated Quality Guards:** Building multi-signal algorithmic metrics logs is essential for tracking safety drift without running expensive manual validation cycles on high-volume enterprise data pipelines.
+
+## 🛠️ Tech Stack & Components
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)
