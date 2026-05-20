@@ -372,3 +372,34 @@ The evaluation framework executes four automated rule-based and programmatic gua
 ## 🛠️ Tech Stack & Components
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)
+
+
+# Day 19: Systematic Prompt Engineering for LLMs 🛠️✨
+
+## Overview
+On Day 19, I moved from pipeline architecture to **Systematic Prompt Engineering**. The objective was to transform inconsistent model outputs into reliable, structured data using five distinct prompting techniques.
+
+## Prompt Engineering Techniques Evaluated
+1. **Role Assignment:** Giving the model a persona to set technical tone.
+2. **Output Formatting:** Forcing JSON structures for programmatic downstream use.
+3. **Chain-of-Thought (CoT):** Reducing logic errors by forcing the model to "think" before extracting.
+4. **Few-Shot Prompting:** Providing input-output pairs to align with specific schemas.
+5. **Negative Constraints:** Stripping away conversational "fluff" for cleaner extraction.
+
+## Evaluation Results
+
+| Technique | Average Accuracy Score (1-5) | Observation |
+| :--- | :---: | :--- |
+| **Baseline** | 3.0 | Inconsistent; prone to conversational filler. |
+| **Role Assignment**| 4.0 | Improved professional terminology. |
+| **Output Format** | 5.0 | **Highest Precision**; perfect for JSON parsing. |
+| **Chain-of-Thought**| 4.5 | Excellent for complex extraction logic. |
+| **Few-Shot** | 4.8 | Very reliable for custom formats. |
+
+## Key Findings
+- **The "Format" Factor:** For extraction tasks, **Output Format Specification** was the single most impactful technique. It reduced parsing errors to near zero.
+- **Grounding Guard:** Implementing a system prompt that explicitly refuses non-contextual questions (tested via 5 out-of-context queries) successfully mitigated hallucination drift.
+
+## 🛠️ Tech Stack
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![LangChain](https://img.shields.io/badge/LangChain-F7DF1E?style=for-the-badge&logo=langchain&logoColor=black)
